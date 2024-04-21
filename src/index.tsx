@@ -15,9 +15,9 @@ interface BlockCoreQueryAttributes extends BlockVariation {
 
 registerBlockVariation( 'core/query', {
 	name: VARIATION_NAME,
-	title: __( 'Single Post Query Loop', 'single-post-query-loop-selector' ),
+	title: __( 'Relacionada', 'single-post-query-loop-selector' ),
 	description: __(
-		'Allow you to search and select a single post.',
+		'Destaca una notícia relacionada',
 		'single-post-query-loop-selector'
 	),
 	category: 'theme',
@@ -29,16 +29,34 @@ registerBlockVariation( 'core/query', {
 			postType: 'post',
 			sticky: 'exclude',
 		},
-		className: 'is-style-single-post-query-loop-selector',
+		className: 'post_destacat',
 	},
 	allowedControls: [],
 	innerBlocks: [
 		[
 			'core/post-template',
 			{},
-			[ [ 'core/post-title' ], [ 'core/post-excerpt' ] ],
+			[
+				[
+					'core/columns',
+					{
+                        style: { color: { background: '#f0f0f0' } }, // Setting a light gray background color
+                    },
+					[
+						[
+							'core/column', {width: '25%',verticalAlignment: 'center'},
+							[['core/post-featured-image',{isLink: true}]]
+						],
+						[
+							'core/column',
+							{ width: '75%' },
+							[['core/post-title',{ isLink: true, level: 4 }]],
+						],
+					]
+				]
+			]
 		],
-	],
+	],	
 	scope: [ 'inserter' ],
 } as BlockCoreQueryAttributes );
 
